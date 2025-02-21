@@ -1,0 +1,479 @@
+@media print {
+
+    @page {
+        size: A4 !important;
+        margin: 0 !important;
+    }
+    
+    .logo{
+    	margin: 0px !important;
+    	padding: 0px !important;
+    	display: none !important;
+    }
+
+    .btn {
+        display: none !important;
+    }
+
+    .ptk-img-accessories {
+        padding: 10px !important;
+    }
+
+    .width-print {
+        --bs-gutter-x: 1.5rem !important;
+        --bs-gutter-y: 0 !important;
+        width: 85% !important;
+        padding-right: calc(var(--bs-gutter-x) * .5) !important;
+        padding-left: calc(var(--bs-gutter-x) * .5) !important;
+        margin-right: auto !important;
+        margin-left: auto !important;
+    }
+
+
+    .ptk-font-header {
+        margin: 0 !important;
+        padding: 0 !important;
+        font-size: 20pt !important;
+        font-family: 'TH Sarabun', 'Krabi', 'sans-serif' !important;
+        font-weight: bold !important;
+    }
+
+    .ptk-font-accessories {
+        margin: 0 !important;
+        padding: 0 !important;
+        font-size: 15pt !important;
+        font-family: 'TH Sarabun', 'Krabi', 'sans-serif' !important;
+        font-weight: bold !important;
+    }
+
+    .ptk-font-text-accessories {
+        margin: 0 !important;
+        padding: 0 !important;
+        font-size: 12pt !important;
+        font-family: 'TH Sarabun', 'Krabi', 'sans-serif' !important;
+    }
+
+    .ptk-font-description {
+        margin: 0 !important;
+        padding: 0 !important;
+        font-size: 15pt !important;
+        font-family: 'TH Sarabun', 'Krabi', 'sans-serif' !important;
+        font-weight: bold !important;
+    }
+
+    .ptk-text-description {
+        margin: 0 !important;
+        padding: 0 !important;
+        font-size: 14pt !important;
+        font-family: 'TH Sarabun', 'Krabi', 'sans-serif' !important;
+        font-weight: bold !important;
+    }
+
+    .ptk-text-detail {
+        margin: 0 !important;
+        padding: 0 !important;
+        font-size: 13pt !important;
+        font-family: 'TH Sarabun', 'Krabi', 'sans-serif' !important;
+    }
+}
+
+@media screen and (max-width: 600px) and (min-width: 0px) {
+    body {
+        padding: 0px !important;
+        margin: 0px !important;
+    }
+
+    .width-print {
+        width: 100% !important;
+        padding-left: 40px !important;
+        padding-right: 40px !important;
+    }
+
+    .mx-5 {
+        margin-left: 8px !important;
+    }
+
+    .model-discount {
+        display: flex !important;
+        position: fixed !important;
+        margin-top: -100px !important;
+        width: 100% !important;
+        height: 120vh !important;
+        background-color: rgba(22, 22, 22, 0.2) !important;
+        z-index: 9999 !important;
+    }
+
+    .model-discount-content {
+        display: flex !important;
+        position: absolute !important;
+        top: 40% !important;
+        left: 30% !important;
+        width: 90% !important;
+        height: 15% !important;
+        background-color: white !important;
+        margin-top: -100px !important;
+        margin-left: -100px !important;
+        border-radius: 7px !important;
+    }
+}
+
+@media screen and (max-width: 1023px) and (min-width: 601px) {
+    body {
+        padding: 0px !important;
+        margin: 0px !important;
+    }
+
+    .width-print {
+        width: 100% !important;
+        padding-left: 40px !important;
+        padding-right: 40px !important;
+    }
+
+    .mx-5 {
+        margin-left: 8px !important;
+    }
+
+    .model-discount {
+        display: flex !important;
+        position: fixed !important;
+        margin-top: -100px !important;
+        width: 100% !important;
+        height: 120vh !important;
+        background-color: rgba(22, 22, 22, 0.2) !important;
+        z-index: 9999 !important;
+    }
+
+    .model-discount-content {
+        display: flex !important;
+        position: absolute !important;
+        top: 40% !important;
+        left: 30% !important;
+        width: 70% !important;
+        height: 15% !important;
+        background-color: white !important;
+        margin-top: -100px !important;
+        margin-left: -100px !important;
+        border-radius: 7px !important;
+    }
+}
+
+@media screen and (max-width: 1200px) and (min-width: 1024px) {
+    body {
+        padding: 0px !important;
+        margin: 0px !important;
+    }
+
+    .width-print {
+        width: 100% !important;
+        padding-left: 40px !important;
+        padding-right: 40px !important;
+    }
+
+    .mx-5 {
+        margin-left: 8px !important;
+    }
+
+    .model-discount {
+        display: flex !important;
+        position: fixed !important;
+        margin-top: -100px !important;
+        width: 100% !important;
+        height: 120vh !important;
+        background-color: rgba(22, 22, 22, 0.2) !important;
+        z-index: 9999 !important;
+    }
+
+    .model-discount-content {
+        display: flex !important;
+        position: absolute !important;
+        top: 40% !important;
+        left: 25% !important;
+        width: 70% !important;
+        height: 15% !important;
+        background-color: white !important;
+        margin-top: -100px !important;
+        margin-left: -100px !important;
+        border-radius: 7px !important;
+    }
+}
+
+@media screen and (max-width: 1700px) and (min-width: 1201px) {
+    body {
+        padding: 0px !important;
+        margin: 0px !important;
+    }
+
+    .width-print {
+        --bs-gutter-x: 1.5rem;
+        --bs-gutter-y: 0;
+        width: 50%;
+        padding-right: calc(var(--bs-gutter-x) * .5);
+        padding-left: calc(var(--bs-gutter-x) * .5);
+        margin-right: auto;
+        margin-left: auto
+    }
+
+    .mx-5 {
+        margin-left: 8px !important;
+    }
+
+    .model-discount {
+        display: flex !important;
+        position: fixed !important;
+        margin-top: -100px !important;
+        width: 100% !important;
+        height: 120vh !important;
+        background-color: rgba(22, 22, 22, 0.2) !important;
+        z-index: 9999 !important;
+    }
+
+    .model-discount-content {
+        display: flex !important;
+        position: absolute !important;
+        top: 40% !important;
+        left: 45% !important;
+        width: 30% !important;
+        height: 15% !important;
+        background-color: white !important;
+        margin-top: -100px !important;
+        margin-left: -100px !important;
+        border-radius: 7px !important;
+    }
+}
+
+@font-face {
+    font-family: 'TH Sarabun' !important;
+    src: url('/font/THsarabun/THSarabun.ttf') format('truetype') !important;
+}
+
+.width-print {
+    margin-top: 20px;
+    --bs-gutter-x: 1.5rem;
+    --bs-gutter-y: 0;
+    width: 50%;
+    padding-right: calc(var(--bs-gutter-x) * .5);
+    padding-left: calc(var(--bs-gutter-x) * .5);
+    margin-right: auto;
+    margin-left: auto
+}
+
+.ptk-font-header {
+    margin: 0 !important;
+    padding: 0 !important;
+    font-size: 20pt !important;
+    font-family: 'TH Sarabun', 'Krabi', 'sans-serif' !important;
+    font-weight: bold !important;
+}
+
+.ptk-img-width {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.ptk-font-accessories {
+    margin: 0 !important;
+    padding: 0 !important;
+    font-size: 15pt !important;
+    font-family: 'TH Sarabun', 'Krabi', 'sans-serif' !important;
+    font-weight: bold !important;
+}
+
+.ptk-col-2-accessories {
+    flex: 0 0 auto !important;
+    width: 16.66666666666667% !important;
+}
+
+.ptk-img-accessories {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.ptk-font-text-accessories {
+    margin: 0 !important;
+    padding: 0 !important;
+    font-size: 12pt !important;
+    font-family: 'TH Sarabun', 'Krabi', 'sans-serif' !important;
+}
+
+.ptk-border-box-accessories {
+    margin: 0 !important;
+    padding: 0 !important;
+    border-right: 1px solid rgb(22, 22, 22) !important;
+    border-bottom: 1px solid rgb(22, 22, 22) !important;
+}
+
+.ptk-border-top {
+    margin: 0 !important;
+    padding: 0 !important;
+    border-top: 1px solid rgb(22, 22, 22) !important;
+}
+
+.ptk-border-left {
+    margin: 0 !important;
+    padding: 0 !important;
+    border-left: 1px solid rgb(22, 22, 22) !important;
+}
+
+.ptk-font-description {
+    margin: 0 !important;
+    padding: 0 !important;
+    font-size: 15pt !important;
+    font-family: 'TH Sarabun', 'Krabi', 'sans-serif' !important;
+    font-weight: bold !important;
+}
+
+.ptk-line-header {
+    margin: 0 !important;
+    padding: 0 !important;
+    border-bottom: 1px solid rgb(22, 22, 22) !important;
+}
+
+.ptk-line-description {
+    margin: 0 !important;
+    padding: 0 !important;
+    border-bottom: 1px solid rgb(22, 22, 22) !important;
+}
+
+.ptk-text-description {
+    margin: 0 !important;
+    padding: 0 !important;
+    font-size: 14pt !important;
+    font-family: 'TH Sarabun', 'Krabi', 'sans-serif' !important;
+    font-weight: bold !important;
+}
+
+.ptk-text-detail {
+    margin: 0 !important;
+    padding: 0 !important;
+    font-size: 13pt !important;
+    font-family: 'TH Sarabun', 'Krabi', 'sans-serif' !important;
+}
+
+@font-face {
+    font-family: 'TH Sarabun';
+    src: url('/font/THsarabun/THSarabun.ttf') format('truetype');
+}
+.logo{
+    display: flex;
+    justify-content: end;
+    margin: 0px;
+    padding: 0px;
+}
+.img-logo {
+  width: 12%;
+  height: 12%;
+}
+.font-header{
+    font-size: 20pt;
+    font-family: 'TH Sarabun', 'Krabi', 'sans-serif';
+    font-weight: bold;
+}
+.border-fixed{
+    display: flex;
+    border: 1px solid rgb(255, 255, 255);
+    width: 18cm;
+    height: 7cm;
+    justify-content: center;
+    align-items: center;
+}
+.img-width{
+    width: 100%;
+    height: 100%;
+}
+.font-accessories{
+    margin: 0;
+    padding: 0;
+    font-size: 15pt;
+    font-family: 'TH Sarabun', 'Krabi', 'sans-serif';
+    font-weight: bold;
+}
+.col-2-accessories{
+    flex: 0 0 auto;
+    width: 3cm;
+    height: 3cm;
+}
+.border-left{
+    border-left: 1px solid;
+}
+.border-box{
+    border-bottom: 1px solid;
+    border-right: 1px solid;
+    border-top: 1px solid
+}
+.img-accessories{
+    width: 100%;
+    height: 100%;
+}
+.text-accessories{
+    margin: 0;
+    padding: 0;
+    font-size: 12pt;
+    font-family: 'TH Sarabun', 'Krabi', 'sans-serif';
+}
+.font-description{
+    margin: 0;
+    padding: 0;
+    font-size: 15pt;
+    font-family: 'TH Sarabun', 'Krabi', 'sans-serif';
+    font-weight: bold;
+    margin-top: 1cm;
+}
+.report-cm{
+    margin-bottom: 0.3cm;
+}
+.line-header{
+    border-bottom: 1px solid;
+}
+.line-description{
+    border-bottom: 1px solid;
+}
+.text-description{
+    margin: 0;
+    padding: 0;
+    font-size: 14pt;
+    font-family: 'TH Sarabun', 'Krabi', 'sans-serif';
+    font-weight: bold;
+}
+.text-detail{
+    margin: 0;
+    padding: 0;
+    font-size: 13pt;
+    font-family: 'TH Sarabun', 'Krabi', 'sans-serif';
+}
+.line-space-1{
+    margin-bottom: 0.5cm;
+}
+.margin-description{
+    margin-top: 20px !important;
+}
+
+.line-space-2{
+    margin-bottom: 0.5cm;
+}
+.model-discount {
+    display: flex;
+    position: fixed;
+    margin-top: -100px;
+    width: 100%;
+    height: 120vh;
+    background-color: rgba(22, 22, 22, 0.2);
+    z-index: 9999;
+}
+
+.model-discount-content {
+    display: flex;
+    position: absolute;
+    top: 40%;
+    left: 45%;
+    width: 20%;
+    height: 15%;
+    background-color: white;
+    margin-top: -100px;
+    margin-left: -100px;
+    border-radius: 7px;
+}
+
+.times-danger:hover{
+    color: red;
+    cursor: pointer;
+}
