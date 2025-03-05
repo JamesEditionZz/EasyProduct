@@ -1,49 +1,42 @@
-"use client";
-import React, { useEffect, useState, useRef } from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
+'use client';
+import React, { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./report.css";
 
-type ProductFeature = {
-  Product_Path_img: string; // เพิ่มฟิลด์ที่คุณต้องการเข้าถึง
-  Product_img: string;
-  // เพิ่มฟิลด์อื่นๆ ที่ต้องการ
-};
-
-function index() {
+function Report() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const data = searchParams.get("ID");
   const [dataProduct, setDataProduct] = useState([]);
 
   useEffect(() => {
-    const fecthdata = async () => {
-      try {
-        const response = await fetch(
-          `http://localhost:8001/api/get/dataReport`,
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ ID: data }),
-          }
-        );
+    const fetchData = async () => {
+      if (!data) return;
 
-        const res = await response.json();
-        setDataProduct(res);
-        console.log(res);
+      try {
+        const response = await fetch("http://10.15.0.23:5005/api/get/dataReport", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ ID: data }),
+        });
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch data");
+        }
+
+        const product = await response.json();
+        setDataProduct(product);
       } catch (error) {
-        console.error(error);
+        console.error("Error fetching data:", error);
       }
     };
-    fecthdata();
+
+    fetchData();
   }, [data]);
 
-  console.log(dataProduct);
-  
-
-  const currentDate = new Date();
-  const formattedDate = currentDate.toLocaleDateString("th-TH", {
+  const formattedDate = new Date().toLocaleDateString("th-TH", {
     timeZone: "Asia/Bangkok",
   });
 
@@ -53,42 +46,45 @@ function index() {
     timeZone: "Asia/Bangkok",
   });
 
-  const Product_img = dataProduct[0]?.Product_img?.replace(/\\/g, "/");
-
-  const btnbackpage = () => {
-    router.push(`../`)
-  }
+  const btnBackPage = () => {
+    router.push("../");
+  };
 
   const btnPrint = () => {
     window.print();
-  }
+  };
 
   return (
     <>
       <div className="d-flex fixed-top mt-5">
-        <button className="btn btn-danger mx-5" onClick={() => btnbackpage()}>
+        <button className="btn btn-danger mx-5" onClick={btnBackPage}>
           ย้อนกลับ
         </button>
-        <button className="btn btn-warning mx-5" onClick={() => btnPrint()}>
+        <button className="btn btn-warning mx-5" onClick={btnPrint}>
           Print
         </button>
       </div>
       <div id="pdf-content" className="width-print">
         <div className="row">
           <div className="d-flex justify-content-between col-12 ptk-font-header">
-            <label><Image src={`/Logo/logo.png`} width={100} height={50} alt="logo" /></label> <label>{formattedDate}</label>
+            <label>
+              <Image src={`/Logo/logo.png`} width={100} height={50} alt="logo" />
+            </label>
+            <label>{formattedDate}</label>
           </div>
           <div className="col-12 ptk-border-fixed">
             <div className="row mt-3">
               <div className="col-4"></div>
               <div className="col-4">
-                <Image
-                  src={`/${dataProduct[0]?.Product_Path_img}`}
-                  className="img-width"
-                  width={1000}
-                  height={1000}
-                  alt=""
-                />
+                {dataProduct.length > 0 && dataProduct[0]?.Product_Path_img && (
+                  <Image
+                    src={`/${dataProduct[0].Product_Path_img}`}
+                    className="img-width"
+                    width={1000}
+                    height={1000}
+                    alt="Product Image"
+                  />
+                )}
               </div>
               <div className="col-4"></div>
             </div>
@@ -96,11 +92,6 @@ function index() {
           <div className="col-12 ptk-font-description mt-3 ptk-line-header">
             FEATURES
           </div>
-          {dataProduct.map((item, index) => (
-            <div className="col-4 ptk-font-description" key={index}>
-              {item.Feature_name}
-            </div>
-          ))}
           <div className="ptk-line-header"></div>
           <div className="col-12 ptk-font-description margin-description ptk-line-header">
             DESCRIPTIONS
@@ -109,7 +100,7 @@ function index() {
             <div className="col-3 ptk-text-description">ราคาเฟอร์นิเจอร์</div>
             <div className="col-1 ptk-text-detail"></div>
             <div className="col-6 ptk-text-detail">
-              {dataProduct[0]?.Product_price.toLocaleString()} บาท
+              {dataProduct[0]?.Product_price?.toLocaleString() || "N/A"} บาท
             </div>
           </div>
           <div className="row ptk-line-description">
@@ -123,7 +114,7 @@ function index() {
             </div>
             <div className="col-1 ptk-text-detail"></div>
             <div className="col-6 ptk-text-detail">
-              {dataProduct[0]?.Product_price.toLocaleString()} บาท
+              {dataProduct[0]?.Product_price?.toLocaleString() || "N/A"} บาท
             </div>
           </div>
           <div className="row ptk-line-description">
@@ -149,4 +140,5 @@ function index() {
   );
 }
 
-export default index;
+export default Report;
+

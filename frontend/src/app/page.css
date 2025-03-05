@@ -1,4 +1,9 @@
 @media screen and (min-width: 1301px) and (max-width: 1600px) {
+    .col-3 {
+        flex: 0 0 auto !important;
+        width: 25% !important;
+    }
+
     .line-product {
         margin-left: 20px !important;
         margin-right: 20px !important;
@@ -6,20 +11,13 @@
 
     .mt-5 {
         margin-top: 2rem !important
-    }
-
-    .border-card {
-        border: 2px solid rgb(0, 102, 255);
-        border-radius: 7px;
-        padding: 5px;
-        width: inherit;
     }
 }
 
 @media screen and (min-width: 1201px) and (max-width: 1300px) {
     .col-3 {
         flex: 0 0 auto !important;
-        width: 33.3333333333% !important;
+        width: 25% !important;
     }
 
     .line-product {
@@ -30,19 +28,12 @@
     .mt-5 {
         margin-top: 2rem !important
     }
-
-    .border-card {
-        border: 2px solid rgb(0, 102, 255);
-        border-radius: 7px;
-        padding: 5px;
-        width: inherit;
-    }
 }
 
 @media screen and (min-width: 801px) and (max-width: 1200px) {
     .col-3 {
         flex: 0 0 auto !important;
-        width: 50% !important;
+        width: 33.333333333% !important;
     }
 
     .line-product {
@@ -52,13 +43,6 @@
 
     .mt-5 {
         margin-top: 2rem !important
-    }
-
-    .border-card {
-        border: 2px solid rgb(0, 102, 255);
-        border-radius: 7px;
-        padding: 5px;
-        width: inherit;
     }
 }
 
@@ -85,13 +69,6 @@
     .col-5 {
         flex: 0 0 auto !important;
         width: 100% !important;
-    }
-
-    .border-card {
-        border: 2px solid rgb(0, 102, 255);
-        border-radius: 7px;
-        padding: 5px;
-        width: inherit;
     }
 }
 
@@ -129,10 +106,35 @@ body {
     height: 100vh;
 }
 
+.hashtag-linetext{
+    border: 2px solid rgba(0, 132, 255, 0.7);
+    border-radius: 20px;
+    background-color: rgba(32, 145, 252, 0.7);
+    color: white;
+    font-weight: bold;
+}
+
+.font-size-16-bold{
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.font-size-20-bold{
+    font-size: 20px;
+    font-weight: bold;
+}
+
 .line-border {
-    margin-top: 20px;
-    height: 60vh;
+    border: 1px solid gray;
+    width: 400px;
+    height: 250px;
+    border-radius: 20px;
     animation: opacity 1s ease-in-out;
+}
+
+.line-border:hover {
+    box-shadow: 0px 0px 10px black;
+    cursor: pointer;
 }
 
 @keyframes opacity {
@@ -145,190 +147,49 @@ body {
     }
 }
 
-.line-product {
-    border: 1px solid rgb(180, 180, 180);
-    border-radius: 7px;
-    height: 100%;
-    margin-left: 50px;
-    margin-right: 50px;
+.image-menu-main {
+    width: auto;
+    height: 150px;
+    object-fit: cover;
+}
+
+.model {
+    display: flex;
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.model-content{
+    width: 90%;
+    height: 95vh;
+    background-color: white;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+}
+
+.cursor-pointer:hover{
+    cursor: pointer;
+}
+
+.box-border-list{
+    border: 1px solid gray;
+    margin-top: 10px;
+    width: 90%;
+    height: 75vh;
+    margin-left: auto;
+    margin-right: auto;
     overflow-y: auto;
 }
 
-.border-box-search {
-    width: 100%;
+.line-product{
+    border: 1px solid gray;
+    z-index: 1000;
 }
 
-.display-input-search {
-    margin-top: 10%;
-    margin-bottom: 0px;
-}
-
-.border-card {
-    border: 2px solid rgb(0, 102, 255);
-    border-radius: 7px;
-    padding: 5px;
-    align-content: center;
-}
-
-.border-card:hover {
+.line-product:hover{
+    box-shadow: 0px 0px 10px black;
     cursor: pointer;
-    color: white;
-    background-color: rgb(45, 129, 255);
-}
-
-.animation-slide-top {
-    animation: slide-top 0.5s ease-in-out forwards;
-}
-
-@keyframes slide-top {
-    from {
-        transform: translateY(100%);
-    }
-
-    to {
-        transform: translateY(0);
-    }
-}
-
-.images-select-1 {
-    width: 20px;
-    height: 100%;
-}
-
-.images-select-2 {
-    width: 100px;
-    height: 100%;
-}
-
-.active {
-    background-color: rgb(45, 129, 255);
-    color: white;
-}
-
-.product {
-    display: flex;
-    justify-content: center;
-    padding: 10px;
-}
-
-.image-size {
-    width: auto;
-    height: 125px;
-    object-fit: cover;
-    margin-bottom: 20px;
-}
-
-.image-menu-main {
-    width: auto;
-    height: 100px;
-    object-fit: cover;
-}
-
-.image-size-menu {
-    width: auto;
-    height: 40px;
-    object-fit: cover;
-}
-
-.active-select {
-    border-radius: 7px;
-    border: 2px solid rgb(80, 80, 80) !important;
-}
-
-.cursor-pointer:hover {
-    cursor: pointer;
-}
-
-.row {
-    margin-left: 0;
-    /* ตัดขอบซ้าย */
-    margin-right: 0;
-    /* ตัดขอบขวา */
-}
-
-.border-botton {
-    border-bottom: 1px solid rgb(204, 204, 204);
-}
-
-.animation-slide {
-    animation: slide-from-left 1s ease-in-out;
-}
-
-@keyframes slide-from-left {
-    0% {
-        transform: translateX(-100%);
-    }
-
-    100% {
-        transform: translateX(0%);
-    }
-}
-
-.image-icon-action {
-    width: 35px;
-    height: 35px;
-}
-
-.image-icon-action:hover {
-    cursor: pointer;
-    animation: refresh 1s infinite ease-in-out;
-}
-
-@keyframes refresh {
-    0% {
-        transform: rotate(0deg);
-    }
-
-    100% {
-        transform: rotate(360deg);
-    }
-}
-
-.box-hashtag {
-    margin-top: 10px;
-    border: 2px solid rgb(0, 80, 255);
-    border-radius: 15px;
-    padding-left: 15px;
-    padding-right: 15px;
-    background-color: rgb(69, 128, 255);
-    color: rgb(255, 255, 255);
-}
-
-.font-size-20 {
-    font-size: 20px;
-}
-
-.card-item {
-    display: flex;
-    justify-content: flex-end;
-    flex-direction: column;
-}
-
-.model-box {
-    display: flex;
-    position: fixed;
-    z-index: 1000 !important;
-    background-color: rgba(0, 0, 0, 0.3) !important;
-    width: 100%;
-    height: 100vh;
-}
-
-.model-content {
-    width: 95vw;
-    height: 90vh;
-    margin: 40px;
-    background-color: white;
-}
-
-.btn-content {
-    display: flex;
-    position: fixed;
-    bottom: 80px; /* ติดขอบล่าง */
-    right: 120px; /* ติดขอบขวา */
-}
-
-.btn-report button {
-    padding: 10px 20px;
-    font-size: 16px;
-    border-radius: 5px;
 }

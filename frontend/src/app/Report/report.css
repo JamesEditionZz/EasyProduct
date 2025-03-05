@@ -355,7 +355,7 @@
 }
 .logo{
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     margin: 0px;
     padding: 0px;
 }
