@@ -20,10 +20,10 @@ const config = {
   },
 };
 
-app.get(`/api/get/data`, async (req, res) => {
+app.get(`/api/get/groupProduct`, async (req, res) => {
   try {
     const pool = await sql.connect(config);
-    const result = await pool.request().query("SELECT * FROM Product");
+    const result = await pool.request().execute("Product_group_list");
 
     res.status(200).json(result.recordset);
   } catch (error) {
@@ -31,14 +31,15 @@ app.get(`/api/get/data`, async (req, res) => {
   }
 });
 
-app.post(`/api/get/dataReport`, async (req, res) => {
+app.post(`/api/post/categoryProduct`, async (req, res) => {
   try {
     const pool = await sql.connect(config);
-    const { ID } = req.body;
+    const { groupname } = req.body;
 
     const result = await pool
       .request()
-      .query(`SELECT * FROM Product WHERE Product.ID = ${ID}`);
+      .input("name_type", sql.VarChar, groupname)
+      .execute(`SP_Get_Category_Product`);
 
     res.status(200).json(result.recordset);
   } catch (error) {
@@ -47,13 +48,16 @@ app.post(`/api/get/dataReport`, async (req, res) => {
   }
 });
 
-app.post(`/api/post/dataProduct`, async (req, res) => {
+app.post(`/api/post/MainProduct`, async (req, res) => {
   try {
     const pool = await sql.connect(config);
-    const { type } = req.body;
+    const { product_Group, product_Category } = req.body;
+
     const result = await pool
       .request()
-      .query(`SELECT * FROM Product WHERE Product_type LIKE '%${type}%'`);
+      .input("product_Group", sql.VarChar, product_Group)
+      .input("product_Category", sql.VarChar, product_Category)
+      .execute(`Data_MainProduct`);
 
     res.status(200).json(result.recordset);
   } catch (error) {
@@ -62,7 +66,60 @@ app.post(`/api/post/dataProduct`, async (req, res) => {
   }
 });
 
-app.post(`/api/post/log`, async (req, res) => {
+app.post(`/api/post/SubProduct`, async (req, res) => {
+  try {
+    const pool = await sql.connect(config);
+    const { product_Group, product_Category, main_Product } = req.body;
+
+    const result = await pool
+      .request()
+      .input("product_Group", sql.VarChar, product_Group)
+      .input("product_Category", sql.VarChar, product_Category)
+      .input("main_Product", sql.VarChar, main_Product)
+      .execute(`Data_SubProduct`);
+
+    res.status(200).json(result.recordset);
+  } catch (error) {
+    res.status(500).json("error");
+    console.error(error);
+  }
+});
+
+app.post(`/api/post/Product`, async (req, res) => {
+  try {
+    const pool = await sql.connect(config);
+
+    const { product_Group, product_Category, main_Product, sub_Product } = req.body;
+
+    const result = await pool
+      .request()
+      .input("product_Group", sql.VarChar, product_Group)
+      .input("product_Category", sql.VarChar, product_Category)
+      .input("main_Product", sql.VarChar, main_Product)
+      .input("sub_Product", sql.VarChar, sub_Product)
+      .execute(`SP_SelectProduct`);
+
+    res.status(200).json(result.recordset);
+  } catch (error) {
+    res.status(500).json("error");
+    console.error(error);
+  }
+});
+
+app.get(`/api/get/Product`, async (req, res) => {
+  try {
+    const pool = await sql.connect(config);
+
+    const result = await pool.request().query(`SELECT * FROM Product`);
+
+    res.status(200).json(result.recordset);
+  } catch (error) {
+    res.status(500).json("error");
+    console.error(error);
+  }
+});
+
+app.post(`/api/post/Log`, async (req, res) => {
   try {
     const pool = await sql.connect(config);
     const { hashtags } = req.body;
@@ -72,7 +129,7 @@ app.post(`/api/post/log`, async (req, res) => {
     const result = await pool
       .request()
       .input("format", sql.VarChar, formattedHashtags)
-      .query("INSERT INTO Search_log (Search_Log) VALUES (@format)");
+      .execute("SP_GetLog");
 
     res.status(200).json({ message: "Get_Log" });
   } catch (error) {

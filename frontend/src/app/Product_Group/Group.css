@@ -1,0 +1,13 @@
+.border-1{
+    border: 1px solid gray !important;
+    border-radius: 7px;
+}
+
+.images-fullscreen{
+    width: 100%;
+}
+
+.bg-hover-product-group:hover{
+    background-color: gainsboro;
+    box-shadow: 0px 0px 7px black;
+}

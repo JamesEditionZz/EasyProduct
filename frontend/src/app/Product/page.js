@@ -1,200 +1,75 @@
-import React from "react";
+'use client'
+import React, { useEffect, useState } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
 
-function page() {
+function page({ product_Group, product_Category, main_Product, sub_Product }) {
+  const [data, setData] = useState([]);
+  const [selectProductPDF, setSelectProductPDF] = useState("");
+  const [modelPDF, setModelPDF] = useState(0);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch(`http://localhost:5005/api/post/Product`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            product_Group,
+            product_Category,
+            main_Product,
+            sub_Product,
+          }),
+        });
+        const response = await res.json();
+
+        setData(response);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchData();
+  }, []);
+
   return (
     <>
-      {dataSelected.length >= 1 ? (
-        dataSelected.map((item, index) => {
-          return (
-            <div
-              key={index}
-              className={`col-3 cursor-pointer border ${
-                selectedIndex === index ? "active-select" : ""
-              }`}
-              onClick={() => {
-                CatalogModel(
-                  item.Product_type,
-                  item.Product_name,
-                  item.Path_File_PDF
-                );
-                setSelectedIndex(index);
-                setProduct_ID(item.ID);
-              }}
-            >
-              <div className="product">
-                <Image
-                  src={`/${item.Product_Path_img}`}
-                  className="image-size"
-                  width={1000}
-                  height={1000}
-                  alt={item.Product_type}
-                />
-              </div>
-              <div className="mt-auto border-bottom"></div>
-              <div className="border-bottom row">
-                <div className="col-4 text-end">
-                  <label>Model : </label>
-                </div>
-                <div className="col-8">
-                  <label>{item.Product_name}</label>
-                </div>
-              </div>
-              <div className="border-bottom row">
-                {item.Product_type === "Sofa" && (
-                  <>
-                    <div className="col-4 text-end">
-                      <label>โครง : </label>
-                    </div>
-                    <div className="col-8">
-                      <label>{item.frame !== null ? item.frame : "-"}</label>
-                    </div>
-                  </>
-                )}
-                {(item.Product_type === "Chair" ||
-                  item.Product_type === "Auditorium") && (
-                  <>
-                    <div className="col-4 text-end">
-                      <label>พนังพิง : </label>
-                    </div>
-                    <div className="col-8">
-                      <label>{item.frame !== null ? item.frame : "-"}</label>
-                    </div>
-                  </>
-                )}
-                {item.Product_type === "Table" && (
-                  <>
-                    <div className="col-4 text-end">
-                      <label>TOP : </label>
-                    </div>
-                    <div className="col-8">
-                      <label>{item.frame !== null ? item.frame : "-"}</label>
-                    </div>
-                  </>
-                )}
-              </div>
-
-              {/* บรรทัดที่ 2  */}
-              <div className="border-bottom row">
-                {item.Product_type === "Sofa" && (
-                  <>
-                    <div className="col-4 text-end">
-                      <label>ที่นั่ง : </label>
-                    </div>
-                    <div className="col-8">
-                      <label>
-                        {item.Backrest !== null ? item.Backrest : "-"}
-                      </label>
-                    </div>
-                  </>
-                )}
-                {(item.Product_type === "Chair" ||
-                  item.Product_type === "Auditorium") && (
-                  <>
-                    <div className="col-4 text-end">
-                      <label>ที่นั่ง : </label>
-                    </div>
-                    <div className="col-8">
-                      <label>
-                        {item.Backrest !== null ? item.Backrest : "-"}
-                      </label>
-                    </div>
-                  </>
-                )}
-                {item.Product_type === "Table" && (
-                  <>
-                    <div className="col-4 text-end">
-                      <label>Modesty : </label>
-                    </div>
-                    <div className="col-8">
-                      <label>
-                        {item.Backrest !== null ? item.Backrest : "-"}
-                      </label>
-                    </div>
-                  </>
-                )}
-              </div>
-              {/* บรรทัดที่ 3  */}
-              <div className="border-bottom row">
-                {item.Product_type === "Sofa" && (
-                  <>
-                    <div className="col-4 text-end">
-                      <label>แขน : </label>
-                    </div>
-                    <div className="col-8">
-                      <label>{item.hand !== null ? item.hand : "-"}</label>
-                    </div>
-                  </>
-                )}
-                {(item.Product_type === "Chair" ||
-                  item.Product_type === "Auditorium") && (
-                  <>
-                    <div className="col-4 text-end">
-                      <label>แขน : </label>
-                    </div>
-                    <div className="col-8">
-                      <label>{item.hand !== null ? item.hand : "-"}</label>
-                    </div>
-                  </>
-                )}
-                {item.Product_type === "Table" && (
-                  <>
-                    <div className="col-4 text-end">
-                      <label>Casters : </label>
-                    </div>
-                    <div className="col-8">
-                      <label>{item.hand !== null ? item.hand : "-"}</label>
-                    </div>
-                  </>
-                )}
-              </div>
-              {/* บรรทัดที่ 4  */}
-              <div className="border-bottom row">
-                {item.Product_type === "Sofa" && (
-                  <>
-                    <div className="col-4 text-end">
-                      <label>ขา : </label>
-                    </div>
-                    <div className="col-8">
-                      <label>{item.foot !== null ? item.foot : "-"}</label>
-                    </div>
-                  </>
-                )}
-                {(item.Product_type == "Chair" ||
-                  item.Product_type == "Auditorium") && (
-                  <>
-                    <div className="col-4 text-end">
-                      <label>ขา : </label>
-                    </div>
-                    <div className="col-8">
-                      <label>{item.foot !== null ? item.foot : "-"}</label>
-                    </div>
-                  </>
-                )}
-                {item.Product_type === "Table" && (
-                  <>
-                    <div className="col-4 text-end">
-                      <label>ขา : </label>
-                    </div>
-                    <div className="col-8">
-                      <label>{item.foot !== null ? item.foot : "-"}</label>
-                    </div>
-                  </>
-                )}
-              </div>
-              <div className="border-bottom row">
-                <div className="col-4 text-end">
-                  <label>ราคาประมาณ : </label>
-                </div>
-                <div className="col-8">
-                  <label>{item.Product_price.toLocaleString()}</label>
-                </div>
-              </div>
-            </div>
-          );
-        })
-      ) : (
-        <div className="h4 text-center p-5 mt-5">ไม่มีสินค้าที่เลือก</div>
+      {modelPDF == 1 && (
+        <div className="model-subitem" onClick={() => setModelPDF(0)}>
+          <div className="model-subitem-content">
+            <iframe
+              src="/example.pdf"
+              width="100%"
+              height="800px"
+              style={{ border: "none" }}
+            ></iframe>
+          </div>
+        </div>
       )}
+      <div className="row">
+        {data.map((item, index) => (
+          <div
+            className="col-3 mt-3"
+            key={index}
+            onClick={() => {
+              setSelectProductPDF(item.Path_File_PDF), setModelPDF(1);
+            }}
+          >
+            <div className="border-selected mx-4 row">
+              <div className="col-4">Model :</div>
+              <div className="col-8">{item.Product_name}</div>
+              <div className="col-4">TOP :</div>
+              <div className="col-8">{item.frame}</div>
+              <div className="col-4">Modesty :</div>
+              <div className="col-8">{item.Backrest}</div>
+              <div className="col-4">Caster :</div>
+              <div className="col-8">{item.hand}</div>
+              <div className="col-4">ขา :</div>
+              <div className="col-8">{item.foot}</div>
+              <div className="col-4">ราคาประมาณ :</div>
+              <div className="col-8">{item.Product_price}</div>
+            </div>
+          </div>
+        ))}
+      </div>
     </>
   );
 }
