@@ -2,11 +2,11 @@
 import { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./page.css";
-import Product_Group from "./Product_Group/page";
+import Product_Group from "./Product_Group/Product_group";
 import Category from "./Category/page";
-import MainProduct from "./MainItem/page";
-import SubProduct from "./SubItem/page";
-import Product from "./Product/page";
+import MainProduct from "./MainItem/Mainitem";
+import SubProduct from "./SubItem/Subitem";
+import Product from "./Product/Product";
 import Image from "next/image";
 
 export default function Home() {
