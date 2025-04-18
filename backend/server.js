@@ -53,6 +53,9 @@ app.post(`/api/post/MainProduct`, async (req, res) => {
     const pool = await sql.connect(config);
     const { product_Group, product_Category } = req.body;
 
+    console.log(req.body);
+    
+
     const result = await pool
       .request()
       .input("product_Group", sql.VarChar, product_Group)
@@ -89,7 +92,8 @@ app.post(`/api/post/Product`, async (req, res) => {
   try {
     const pool = await sql.connect(config);
 
-    const { product_Group, product_Category, main_Product, sub_Product } = req.body;
+    const { product_Group, product_Category, main_Product, sub_Product } =
+      req.body;
 
     const result = await pool
       .request()
@@ -132,6 +136,28 @@ app.post(`/api/post/Log`, async (req, res) => {
       .execute("SP_GetLog");
 
     res.status(200).json({ message: "Get_Log" });
+  } catch (error) {
+    console.error(error);
+  }
+});
+
+app.post(`/api/post/searchText`, async (req, res) => {
+  try {
+    const pool = await sql.connect(config);
+    const { product_Group, product_Category, main_Product, sub_Product, TextSearch } =
+      req.body;
+
+    const result = await pool
+      .request()
+      .input("product_Group", sql.VarChar, product_Group)
+      .input("product_Category", sql.VarChar, product_Category)
+      .input("main_Product", sql.VarChar, main_Product)
+      .input("sub_Product", sql.VarChar, sub_Product)
+      .input("TextSearch", sql.VarChar, TextSearch)
+      .execute("SP_Search_Product");
+
+    res.status(200).json(result.recordset);
+    
   } catch (error) {
     console.error(error);
   }

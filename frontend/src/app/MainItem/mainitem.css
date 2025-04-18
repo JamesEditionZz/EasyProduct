@@ -1,18 +1,127 @@
-.border-box-product{
+.border-box-product {
     border: 1px solid gray;
     width: 95%;
     height: 60vh;
     overflow-y: auto;
 }
 
-.border-selected{
+.border-selected {
     border: 1px solid gray;
     padding: 10px;
     border-radius: 7px;
     margin-left: 5px;
     margin-right: 5px;
 }
-.border-selected:hover{
+
+.border-selected:hover {
     background-color: lightblue;
     cursor: pointer;
+}
+
+.box-show-select {
+    border: 2px solid rgb(255, 75, 75);
+    border-radius: 15px;
+    background-color: rgb(255, 158, 158);
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.box-show-sub {
+    border: 2px solid rgb(255, 75, 75);
+    border-radius: 15px;
+    background-color: rgb(255, 158, 158);
+    font-weight: bold;
+    font-size: 18px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.line-show-select {
+    border-radius: 10px;
+    height: 80vh;
+}
+
+.animation-show-slide-left {
+    animation: menu_show_slide_left 1s ease-in-out;
+}
+
+@keyframes menu_show_slide_left {
+    0% {
+        transform: translateX(-150%);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+.line-show-select-menu {
+    animation: menu_show_slide_left_menu 1s ease-in-out;
+}
+
+@keyframes menu_show_slide_left_menu {
+    0% {
+        transform: translateX(-150%);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+.animation-show-slide-right {
+    animation: menu_show_slide_rigth 1s ease-in-out;
+}
+
+@keyframes menu_show_slide_rigth {
+    0% {
+        transform: translateX(150%);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+.animation-slider {
+    animation: menu_slider 1s ease-in-out;
+}
+
+@keyframes menu_slider {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(150%);
+    }
+}
+
+.border-select:hover{
+    border-bottom: 2px solid rgb(255, 75, 75);
+    border-radius: 7px;
+    font-weight: bold;
+}
+
+.select-border{
+    border-bottom: 2px solid rgb(255, 75, 75);
+    border-radius: 7px;
+    font-weight: bold;
+}
+
+.animation-arrow{
+    animation: arrow_slide 0.5s ease-in-out
+}
+
+@keyframes arrow_slide {
+    0%{
+        transform: translateX(0%);
+    }
+    100%{
+        transform: translateX(100%);
+    }
+}
+
+.border-overflow{
+    width: 120%;
 }

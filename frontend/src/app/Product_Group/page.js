@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Group.css";
@@ -29,12 +29,11 @@ export default function page({ onSelected }) {
     <div>
       <div className="row">
         {dataGroup.map((item, index) => (
-          <div
-            className="col-3 p-5"
-            key={index}
-            onClick={() => handleSelected(item.Product_name)}
-          >
-            <div className="border-1 cursor-pointer bg-hover-product-group">
+          <div className="col-3 p-5" key={index}>
+            <div
+              className="border-1 cursor-pointer bg-hover-product-group"
+              onClick={() => handleSelected(item.Product_name)}
+            >
               <div className="images-fullscreen">
                 {/* <Image
                   src={}
