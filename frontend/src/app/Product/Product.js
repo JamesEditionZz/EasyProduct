@@ -7,12 +7,12 @@ function Product({ product_Group, product_Category, main_Product, sub_Product })
   const [selectProductPDF, setSelectProductPDF] = useState("");
   const [modelPDF, setModelPDF] = useState(0);
 
-  const [animation, setAnimation] = useState(0);
+  let animation = 0;
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch(`http://localhost:5005/api/post/Product`, {
+        const res = await fetch(`http://10.15.0.23:5005/api/post/Product`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -30,7 +30,10 @@ function Product({ product_Group, product_Category, main_Product, sub_Product })
       }
     };
     fetchData();
-  }, []);
+  }, [product_Group,
+            product_Category,
+            main_Product,
+            sub_Product]);
 
   return (
     <>
@@ -38,7 +41,7 @@ function Product({ product_Group, product_Category, main_Product, sub_Product })
         <div className="model-subitem" onClick={() => setModelPDF(0)}>
           <div className="model-subitem-content">
             <iframe
-              src="/example.pdf"
+              src={selectProductPDF}
               width="100%"
               height="800px"
               style={{ border: "none" }}
@@ -73,7 +76,8 @@ function Product({ product_Group, product_Category, main_Product, sub_Product })
                 className="col-3 mt-3"
                 key={index}
                 onClick={() => {
-                  setSelectProductPDF(item.Path_File_PDF), setModelPDF(1);
+                  setSelectProductPDF(item.Path_File_PDF); 
+                  setModelPDF(1);
                 }}
               >
                 <div className="border-selected mx-4 row">

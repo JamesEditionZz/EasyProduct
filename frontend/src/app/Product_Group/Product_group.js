@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Group.css";
-import Image from "next/image";
+//import Image from "next/image";
 
 export default function Product_group({ onSelected }) {
   const [dataGroup, setDatagroup] = useState([]);
@@ -10,7 +10,7 @@ export default function Product_group({ onSelected }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch(`http://localhost:5005/api/get/groupProduct`);
+        const res = await fetch(`http://10.15.0.23:5005/api/get/groupProduct`);
         const response = await res.json();
 
         setDatagroup(response);

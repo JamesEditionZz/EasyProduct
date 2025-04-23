@@ -125,3 +125,13 @@
 .border-overflow{
     width: 120%;
 }
+
+.table-overflow{
+  height: 90vh;
+  overflow-y: auto;
+}
+
+.picture-product{
+  width: 100%;
+  height: auto;
+}

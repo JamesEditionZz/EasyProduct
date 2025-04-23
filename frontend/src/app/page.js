@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./page.css";
 import Product_Group from "./Product_Group/Product_group";
@@ -19,34 +19,50 @@ export default function Home() {
   const [sub_Product, setSub_Product] = useState("");
   const [selectProductPDF, setSelectProductPDF] = useState("");
   const [modelPDF, setModelPDF] = useState(0);
+  const [product_Price, setProduct_Price] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch(`http://10.15.0.23:5005/api/get/updatePrice`);
+        const response = await res.json();
+
+        setProduct_Price(response);
+
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchData();
+  }, []);
 
   const SearchEngine = async (value) => {
+    setTextSearch(value);
+
     const searchtext = await fetch(
-      `http://localhost:5005/api/post/searchText`,
+      `http://10.15.0.23:5005/api/post/searchText`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          product_Group,
-          product_Category,
-          main_Product,
-          sub_Product,
+          product_Group: product_Group,
+          product_Category: product_Category,
+          main_Product: main_Product,
+          sub_Product: sub_Product,
           TextSearch: value,
         }),
       }
     );
 
-    const response = await searchtext.json()
+    const response = await searchtext.json();
 
-    setDataSearch(response)
+    const filteredData = response.filter((item) =>
+      Object.values(item).some((field) =>
+        String(field).toLowerCase().includes(value.toLowerCase())
+      )
+    );
 
-    // const filteredData = dataProduct.filter((item) =>
-    //   Object.values(item).some((field) =>
-    //     String(field).toLowerCase().includes(value.toLowerCase())
-    //   )
-    // );
-
-    // setDataSearch(filteredData); // อัปเดต state ที่นี่
+    setDataSearch(filteredData); // อัปเดต state ที่นี่
   };
 
   const Callbackvalue = (value) => {
@@ -106,7 +122,7 @@ export default function Home() {
             <div className="row mx-3 mt-4">
               <div className="col-6 border-1 animation-opacity">
                 <iframe
-                  src="/example.pdf"
+                  src={selectProductPDF}
                   width="100%"
                   height="800px"
                   style={{ border: "none" }}
@@ -144,30 +160,35 @@ export default function Home() {
         </div>
       )}
       <div className="h3 text-center mt-3">Easy Product Guide</div>
-      <div className="row w-100 d-flex justify-content-center">
-        <div className="col-12 col-md-8 col-lg-6">
-          <div className="row">
-            <div className="col-11">
-              <input
-                className="form-control"
-                placeholder="Search"
-                // value={valueSearch}
-                onChange={(e) => SearchEngine(e.target.value)}
-              />
-            </div>
-            <div className="col-1">
-              <button className="btn btn-primary">
-                <Image
-                  src={`/Icon/search.png`}
-                  width={20}
-                  height={20}
-                  alt="search"
+      {product_Group.length == 0 ? (
+        <div className="row w-100 d-flex justify-content-center">
+          <div className="col-12 col-md-8 col-lg-6">
+            <div className="row">
+              <div className="col-11">
+                <input
+                  className="form-control"
+                  placeholder="Search"
+                  onChange={(e) => {
+                    SearchEngine(e.target.value);
+                  }}
                 />
-              </button>
+              </div>
+              <div className="col-1">
+                <button className="btn btn-primary">
+                  <Image
+                    src={`/Icon/search.png`}
+                    width={20}
+                    height={20}
+                    alt="search"
+                  />
+                </button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      ) : (
+        <></>
+      )}
       {product_Group && (
         <div className="mx-3">
           <div
@@ -231,27 +252,18 @@ export default function Home() {
           )}
         </>
       ) : (
-        <div className="row mt-5 border-overflow">
+        <div className="row mt-5 border-all-item mx-5">
           {dataSearch.map((item, index) => (
             <div className="col-3 mt-3" key={index}>
               <div
                 className="border-selected mx-4 row"
                 onClick={() => {
-                  setSelectProductPDF(item.Path_File_PDF), setModelPDF(1);
+                  setSelectProductPDF(item.Path_File_PDF);
+                  setModelPDF(1);
                 }}
               >
                 <div className="col-4">Model :</div>
-                <div className="col-8">{item.Product_name}</div>
-                <div className="col-4">TOP :</div>
-                <div className="col-8">{item.frame}</div>
-                <div className="col-4">Modesty :</div>
-                <div className="col-8">{item.Backrest}</div>
-                <div className="col-4">Caster :</div>
-                <div className="col-8">{item.hand}</div>
-                <div className="col-4">ขา :</div>
-                <div className="col-8">{item.foot}</div>
-                <div className="col-4">ราคาประมาณ :</div>
-                <div className="col-8">{item.Product_price}</div>
+                <div className="col-8">{item.Product_Serie}</div>
               </div>
             </div>
           ))}

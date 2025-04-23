@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./subitem.css";
-import Image from "next/image";
+// import Image from "next/image";
 
 export default function Subitem({
   product_Group,
@@ -15,12 +15,12 @@ export default function Subitem({
   const [modelPDF, setModelPDF] = useState(0);
   const seenSubProducts = new Set();
 
-  const [animation, setAnimation] = useState(0);
+  let animation = 0;
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch(`http://localhost:5005/api/post/SubProduct`, {
+        const res = await fetch(`http://10.15.0.23:5005/api/post/SubProduct`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -37,7 +37,9 @@ export default function Subitem({
       }
     };
     fetchData();
-  }, []);
+  }, [product_Group,
+            product_Category,
+            main_Product]);
 
   const handleSelected = (value) => {
     onSelectSubItem(value);
@@ -55,7 +57,7 @@ export default function Subitem({
             <div className="row mx-3 mt-4">
               <div className="col-6 border-1 animation-opacity">
                 <iframe
-                  src="/example.pdf"
+                  src={selectProductPDF}
                   width="100%"
                   height="800px"
                   style={{ border: "none" }}
@@ -140,7 +142,7 @@ export default function Subitem({
                     <div
                       className="border-selected mx-4 row"
                       onClick={() => {
-                        setSelectProductPDF(item.Path_File_PDF), setModelPDF(1);
+                        setSelectProductPDF(item.Path_File_PDF); setModelPDF(1);
                       }}
                     >
                       <div className="text-end col-5">Model :</div>

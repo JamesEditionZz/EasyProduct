@@ -194,7 +194,7 @@ body {
     cursor: pointer;
 }
 
-.border-overflow{
+.border-all-item{
     border: 1px solid gray;
     height: 80vh;
     overflow-y: auto;
