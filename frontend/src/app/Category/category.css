@@ -49,3 +49,8 @@
         transform: translateX(200%);
     }
 }
+
+.images-random{
+    width: 100%;
+    height: auto;
+}

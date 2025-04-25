@@ -1,6 +1,8 @@
 const express = require("express");
 const cors = require("cors");
 const sql = require("mssql");
+const fs = require("fs");
+const path = require("path");
 
 const port = 5005;
 const app = express();
@@ -19,6 +21,67 @@ const config = {
     trustServerCertificate: true,
   },
 };
+
+app.get("/api/image", (req, res) => {
+  const baseDir = "/mnt/mount_file"; // ✅ เพิ่มบรรทัดนี้
+
+  const filePathParam = req.query.path;
+
+  if (!filePathParam) {
+    return res.status(400).json({ error: "Missing path" });
+  }
+
+  const decodedPath = decodeURIComponent(filePathParam);
+  const fullPath = path.join(baseDir, decodedPath);
+
+  console.log("Trying to read:", fullPath);
+
+  if (!fullPath.startsWith(baseDir)) {
+    return res.status(400).json({ error: "Invalid path" });
+  }
+
+  if (!fs.existsSync(fullPath)) {
+    return res.status(404).json({ error: "File not found" });
+  }
+
+  const ext = path.extname(fullPath).toLowerCase();
+  const contentTypeMap = {
+    ".jpg": "image/jpeg",
+    ".jpeg": "image/jpeg",
+    ".png": "image/png",
+    ".gif": "image/gif",
+  };
+
+  const contentType = contentTypeMap[ext] || "application/octet-stream";
+  const imageBuffer = fs.readFileSync(fullPath);
+
+  res.setHeader("Content-Type", contentType);
+  res.send(imageBuffer);
+});
+
+app.get("/api/pdf", (req, res) => {
+  const baseDir = "/mnt/mount_file";
+  const filePathParam = req.query.path;
+
+  if (!filePathParam) {
+    return res.status(400).json({ error: "Missing path" });
+  }
+
+  const decodedPath = decodeURIComponent(filePathParam);
+  const fullPath = path.join(baseDir, decodedPath);
+
+  if (!fullPath.startsWith(baseDir)) {
+    return res.status(403).json({ error: "Invalid path" });
+  }
+
+  if (!fs.existsSync(fullPath)) {
+    return res.status(404).json({ error: "File not found" });
+  }
+
+  const fileStream = fs.createReadStream(fullPath);
+  res.setHeader("Content-Type", "application/pdf");
+  fileStream.pipe(res);
+});
 
 app.get(`/api/get/groupProduct`, async (req, res) => {
   try {
@@ -91,15 +154,13 @@ app.post(`/api/post/Product`, async (req, res) => {
   try {
     const pool = await sql.connect(config);
 
-    const { Product_Serie } =
+    const { Product_Serie, Product_type_name } =
       req.body;
-
-    console.log(req.body);
-    
 
     const result = await pool
       .request()
       .input("Product_Serie", sql.VarChar, Product_Serie)
+      .input("Product_type_name", sql.VarChar, Product_type_name)
       .execute(`SP_SelectProduct`);
 
     res.status(200).json(result.recordset);
@@ -200,6 +261,48 @@ app.post(`/api/post/searchText`, async (req, res) => {
     }
   } catch (error) {
     console.error(error);
+  }
+});
+
+app.get(`/api/get/updatePrice`, async (req, res) => {
+  try {
+    const pool = await sql.connect(config);
+
+    const response = await fetch(`http://192.168.199.104:9083/jderest/v3/orchestrator/Easy_Product_Guide_API`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Basic " + Buffer.from("itskor:itskor").toString("base64"),
+      },
+      body: JSON.stringify({
+        Effective_Date_1: "01/01/25",
+        Expired_Date_1: "31/12/25",
+      }),
+    });
+
+    const dataerp = await response.json();
+    const arrayupdate = dataerp.ServiceRequest1.fs_DATABROWSE_V4106C.data.gridData.rowset;
+
+    for (const item of arrayupdate) {
+      const litm = item.F4106_LITM?.trim();
+      const uprc = item.F4106_UPRC;
+
+      if (litm && uprc) {
+        try {
+          await pool.request()
+            .input("F4106_LITM", sql.VarChar, litm)
+            .input("F4106_UPRC", sql.Int, uprc)
+            .execute('SP_UpdatePrice');
+        } catch (innerErr) {
+          console.error(`Update failed for ${litm}:`, innerErr);
+        }
+      }
+    }
+
+    res.status(200).json({ success: true });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, error: error.message });
   }
 });
 

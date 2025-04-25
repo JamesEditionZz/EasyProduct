@@ -9,6 +9,23 @@ export default function Category({ product_Group, onSelectCategory }) {
   const [animation, setAnimation] = useState(0);
   const [dataSearch, setDataSearch] = useState([]);
   const [textSearch, setTextSearch] = useState("");
+  const [currentImageIndex, setCurrentImageIndex] = useState({});
+
+  useEffect(() => {
+    // เรียกใช้ setInterval เพื่อเปลี่ยนรูปภาพทุกๆ 1 วินาที
+    const intervalId = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => {
+        const newIndex = {};
+        dataGroup.forEach((item) => {
+          newIndex[item.Product_type_name] =
+            (prevIndex[item.Product_type_name] || 0) + 1;
+        });
+        return newIndex;
+      });
+    }, 1000); // เปลี่ยนรูปทุกๆ 1 วินาที
+
+    return () => clearInterval(intervalId); // เคลียร์ interval เมื่อ component ถูกทำลาย
+  }, [dataGroup]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -111,12 +128,17 @@ export default function Category({ product_Group, onSelectCategory }) {
                       onClick={() => handleSelected(item.Product_type_name)}
                     >
                       <div className="images-fullscreen">
-                        {/* <Image
-                src={}
-                width={1000}
-                height={1000}
-                alt={item.Product_name}
-              /> */}
+                        <Image
+                          src={`http://10.15.0.23:5005/api/image?path=${encodeURIComponent(
+                            item.Product_Path_img[
+                              currentImageIndex[item.Product_type_name] %
+                                item.Product_Path_img.length
+                            ]
+                          )}`}
+                          width={1000}
+                          height={1000}
+                          alt={item.Product_name}
+                        />
                       </div>
                       <div className="text-center h5">
                         {item.Product_type_name}
@@ -131,12 +153,17 @@ export default function Category({ product_Group, onSelectCategory }) {
                       onClick={() => handleSelected(item.Product_type_name)}
                     >
                       <div className="images-fullscreen">
-                        {/* <Image
-                src={}
-                width={1000}
-                height={1000}
-                alt={item.Product_name}
-              /> */}
+                        <Image
+                          src={`http://10.15.0.23:5005/api/image?path=${encodeURIComponent(
+                            item.Product_Path_img[
+                              currentImageIndex[item.Product_type_name] %
+                                item.Product_Path_img.length
+                            ]
+                          )}`}
+                          width={1000}
+                          height={1000}
+                          alt={item.Product_name}
+                        />
                       </div>
                       <div className="text-center h5">
                         {item.Product_type_name}

@@ -26,9 +26,7 @@ export default function Home() {
       try {
         const res = await fetch(`http://10.15.0.23:5005/api/get/updatePrice`);
         const response = await res.json();
-
         setProduct_Price(response);
-
       } catch (error) {
         console.error(error);
       }
